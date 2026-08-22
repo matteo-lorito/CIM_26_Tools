@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Preprocessing Report</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Helvetica Neue",Arial,sans-serif;background:#1e1e1c;color:#c2c0b6;padding:20px;line-height:1.5}
+h1{font-size:18px;font-weight:500;color:#f0ede1;margin:0 0 4px}
+h2{font-size:14px;font-weight:500;color:#f0ede1;margin:28px 0 10px;padding-bottom:4px;border-bottom:1px solid #333}
+.sub{font-size:12px;color:#7f7d76;margin-bottom:14px}
+.grid{display:grid;gap:12px;margin:12px 0}
+.g2{grid-template-columns:1fr 1fr}
+.card{background:#252523;border-radius:8px;padding:14px}
+.card-title{font-size:11px;color:#7f7d76;margin-bottom:6px}
+.cbox{position:relative;height:200px}
+.cbox-tall{position:relative;height:300px}
+.cbox-auto{position:relative}
+table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0}
+th{text-align:left;padding:6px 8px;border-bottom:1px solid #333;color:#7f7d76;font-weight:400;font-size:11px}
+td{padding:5px 8px;border-bottom:1px solid #2a2a28;font-family:monospace;font-size:11px}
+tr:nth-child(even){background:#2a2a28}
+.g{color:#639922} .b{color:#e24b4a}
+.chip{display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;margin-right:6px}
+.chip-off{background:#33322f;color:#7f7d76}
+.chip-auto{background:rgba(99,153,34,.15);color:#639922}
+.chip-manual{background:rgba(239,159,39,.15);color:#ef9f27}
+.flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:12px 0;font-size:12px}
+.flow-step{background:#252523;border-radius:6px;padding:6px 12px;border:1px solid #333}
+.flow-step.active{border-color:#639922;color:#f0ede1}
+.flow-arrow{color:#555;font-size:16px}
+.flow-detail{font-size:10px;color:#7f7d76;display:block}
+.err{background:#3a2020;border:1px solid #e24b4a;border-radius:6px;padding:8px 12px;margin:6px 0;font-size:11px;color:#e24b4a}
+.info{background:#1e2a1e;border:1px solid #639922;border-radius:6px;padding:12px;margin:12px 0;font-size:12px;color:#639922}
+.sug-item{padding:4px 0;font-size:12px;border-bottom:1px solid #2a2a28}
+.sug-badge{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10px;margin-right:6px}
+#loading{text-align:center;padding:60px;color:#7f7d76;font-size:14px}
+</style>
+</head>
+<body>
+
+<h1>Preprocessing Report</h1>
+<div class="sub" id="sub"></div>
+<div id="modes"></div>
+<div id="errors"></div>
+<div id="loading">Loading data from Max Dict...</div>
+
+<div id="content" style="display:none">
+  <h2>Pipeline Flow</h2><div id="flow"></div>
+  <h2>Distributions — Before vs After</h2><div class="grid g2" id="histGrid"></div>
+  <h2>Box Plots — Before vs After</h2><div class="card"><div class="cbox-tall"><canvas id="boxCanvas"></canvas></div></div>
+  <h2>Correlated Pairs</h2><div class="grid g2" id="scatterGrid"></div>
+  <h2>Parallel Coordinates</h2><div class="card"><div class="cbox-tall"><canvas id="parallelCanvas"></canvas></div></div>
+  <h2>Correlation Matrix</h2><div class="card"><div class="cbox-auto"><canvas id="corrCanvas"></canvas></div></div>
+  <h2>Feature Statistics</h2><div id="statsTable"></div>
+  <h2>Suggestions</h2><div id="suggestions"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// DATA LOADING — reads from Max Dict via jweb bridge
+//
+// Three ways to trigger:
+//   1. Max sends "load_report" message to jweb (recommended)
+//   2. User clicks the Refresh button
+//   3. Auto-retry on page load (with delay)
+// ═══════════════════════════════════════════════════════════
+
+var dataLoaded = false;
+
+function loadData() {
+  if (dataLoaded) return;  // already rendered
+
+  if (!window.max) {
+    showError("Not running in Max's jweb. Open this file in a [jweb] object after running 'report'.");
+    return;
+  }
+
+  window.max.getDict("preprocess_report", function(D) {
+    if (!D || !D.feature_names) {
+      showError("Dict 'preprocess_report' is empty. Run 'preview' then 'report' first, then click Refresh.");
+      return;
+    }
+    dataLoaded = true;
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("errors").innerHTML = "";
+    document.getElementById("content").style.display = "block";
+    render(D);
+  });
+}
+
+function showError(msg) {
+  document.getElementById("loading").style.display = "none";
+  document.getElementById("errors").innerHTML =
+    '<div class="err">' + msg + '</div>' +
+    '<button onclick="loadData()" style="margin:10px 0;padding:6px 18px;border-radius:6px;border:1px solid #639922;background:#252523;color:#639922;cursor:pointer;font-size:12px">Refresh</button>';
+}
+
+var errors = [];
+function logErr(section, e) {
+  errors.push(section + ": " + e.message);
+  console.error(section, e);
+  document.getElementById("errors").innerHTML =
+    errors.map(function(m) { return '<div class="err">' + m + '</div>'; }).join("");
+}
+
+// Initialization: three loading triggers
+if (window.max) {
+  // 1. Message-triggered: Max sends "load_report" after report() completes
+  //    Wire: [js] outlet 0 → [route report_ready] → [prepend load_report] → [jweb]
+  window.max.bindInlet("load_report", function() {
+    dataLoaded = false;  // allow re-render with fresh data
+    loadData();
+  });
+
+  // 2. Auto-load after a short delay (gives Dict time to populate)
+  setTimeout(loadData, 500);
+} else {
+  showError("Not running in Max's jweb.");
+}
+
+
+// ═══════════════════════════════════════════════════════════
+// RENDERING
+// ═══════════════════════════════════════════════════════════
+
+function render(D) {
+  var names = D.feature_names || [];
+  var nf = names.length;
+  var rawC = "rgba(226,75,74,0.65)", procC = "rgba(99,153,34,0.65)";
+  var rawCB = "#e24b4a", procCB = "#639922";
+  var txtC = "#c2c0b6", gridC = "rgba(255,255,255,0.06)", dimC = "#7f7d76";
+
+  // ── HiDPI canvas setup ──
+  // Canvas is blurry on Retina/HiDPI screens because it draws at logical
+  // pixels but the display has DPR× more physical pixels. We size the
+  // canvas backing store at logical × DPR, then scale the context so all
+  // drawing commands use logical coordinates but render at full resolution.
+  var DPR = window.devicePixelRatio || 1;
+  function setupCanvas(canvas, logicalW, logicalH) {
+    canvas.width = logicalW * DPR;
+    canvas.height = logicalH * DPR;
+    canvas.style.width = logicalW + "px";
+    canvas.style.height = logicalH + "px";
+    var ctx = canvas.getContext("2d");
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);  // scale all drawing to DPR
+    return ctx;
+  }
+
+  var baseOpts = {
+    responsive: true, maintainAspectRatio: false,
+    devicePixelRatio: window.devicePixelRatio || 1,
+    plugins: { legend: { labels: { color: txtC, font: { size: 10 } } } },
+    scales: {
+      x: { ticks: { color: txtC, font: { size: 8 }, maxTicksLimit: 6 }, grid: { color: gridC } },
+      y: { ticks: { color: txtC, font: { size: 8 } }, grid: { color: gridC } }
+    }
+  };
+
+  // ── Header ──
+  try {
+    document.getElementById("sub").textContent =
+      D.n_samples + " samples × " + D.n_features_original + " → " + D.n_features_current + " features";
+    var mh = "";
+    ["impute","correlate","log","winsor"].forEach(function(s) {
+      mh += '<span class="chip chip-' + D.modes[s] + '">' + s + ": " + D.modes[s] + "</span>";
+    });
+    document.getElementById("modes").innerHTML = mh;
+  } catch(e) { logErr("Header", e); }
+
+  // ── Pipeline flow ──
+  try {
+    var ps = D.pipeline_summary || { n_imputed:0, n_dropped:0, n_logged:0, n_clipped:0 };
+    function fs(n,m,d) {
+      var a = m !== "off" ? " active" : "";
+      return '<div class="flow-step' + a + '">' + n + '<span class="flow-detail">' + d + '</span></div><div class="flow-arrow">→</div>';
+    }
+    var fl = fs("Raw","on", D.n_features_original + " feat")
+      + fs("Impute", D.modes.impute, ps.n_imputed + " filled")
+      + fs("Correlate", D.modes.correlate, ps.n_dropped + " dropped")
+      + fs("Log", D.modes.log, ps.n_logged + " transformed")
+      + fs("Winsorize", D.modes.winsor, ps.n_clipped + " clipped")
+      + '<div class="flow-step active">Output<span class="flow-detail">' + D.n_features_current + ' feat</span></div>';
+    document.getElementById("flow").innerHTML = '<div class="flow">' + fl + '</div>';
+  } catch(e) { logErr("Pipeline flow", e); }
+
+  // ── Histogram charts ──
+  try {
+    if (typeof Chart === "undefined") throw new Error("Chart.js not loaded — check internet connection");
+    var hg = document.getElementById("histGrid");
+    for (var fi = 0; fi < nf; fi++) {
+      var cd = document.createElement("div"); cd.className = "card";
+      cd.innerHTML = '<div class="card-title">' + names[fi] + '</div><div class="cbox"><canvas id="hist_' + fi + '"></canvas></div>';
+      hg.appendChild(cd);
+      var hb = D.histograms_before[fi], ha = D.histograms_after[fi];
+      var labs = hb.centers.map(function(v) { return v.toFixed(1); });
+      new Chart(document.getElementById("hist_" + fi), {
+        type: "bar",
+        data: { labels: labs, datasets: [
+          { label: "Before", data: hb.counts, backgroundColor: rawC, borderColor: rawCB, borderWidth: 0.5 },
+          { label: "After", data: ha.counts, backgroundColor: procC, borderColor: procCB, borderWidth: 0.5 }
+        ]},
+        options: Object.assign({}, baseOpts, { plugins: { legend: { display: fi === 0, labels: { color: txtC, font: { size: 9 } } } } })
+      });
+    }
+  } catch(e) { logErr("Histograms", e); }
+
+  // ── Box plots (Canvas 2D) ──
+  try {
+    var cv = document.getElementById("boxCanvas");
+    var bW = cv.parentElement.clientWidth - 28, bH = cv.parentElement.clientHeight - 28;
+    var cx = setupCanvas(cv, bW, bH);
+    var bPad = { l: 20, r: 20, t: 24, b: 52 };
+    var bPW = bW - bPad.l - bPad.r, bPH = bH - bPad.t - bPad.b;
+    var groupW = bPW / nf, boxW = groupW * 0.28;
+    cx.fillStyle = "#252523"; cx.fillRect(0, 0, bW, bH);
+    // Legend
+    cx.fillStyle = rawCB; cx.fillRect(bPad.l, 4, 11, 11);
+    cx.fillStyle = txtC; cx.font = "11px sans-serif"; cx.textAlign = "left"; cx.fillText("Before", bPad.l + 16, 13);
+    cx.fillStyle = procCB; cx.fillRect(bPad.l + 72, 4, 11, 11);
+    cx.fillStyle = txtC; cx.fillText("After", bPad.l + 88, 13);
+
+    for (var fi = 0; fi < nf; fi++) {
+      var bb = D.boxplots_before[fi], ba = D.boxplots_after[fi];
+      var ylo = Math.min(bb.min, ba.min), yhi = Math.max(bb.max, ba.max);
+      var yr = yhi - ylo; if (yr < 1e-9) yr = 1; ylo -= yr * 0.05; yhi += yr * 0.05; yr = yhi - ylo;
+      var cx0 = bPad.l + fi * groupW + groupW * 0.15;
+
+      function yp(v) { return bPad.t + bPH - (v - ylo) / yr * bPH; }
+
+      // Before box
+      cx.strokeStyle = rawCB; cx.fillStyle = rawC; cx.lineWidth = 1.5;
+      cx.fillRect(cx0, yp(bb.q3), boxW, yp(bb.q1) - yp(bb.q3));
+      cx.strokeRect(cx0, yp(bb.q3), boxW, yp(bb.q1) - yp(bb.q3));
+      cx.beginPath(); cx.moveTo(cx0, yp(bb.median)); cx.lineTo(cx0 + boxW, yp(bb.median)); cx.lineWidth = 2.5; cx.stroke(); cx.lineWidth = 1.5;
+      cx.beginPath(); cx.moveTo(cx0 + boxW/2, yp(bb.q3)); cx.lineTo(cx0 + boxW/2, yp(bb.max)); cx.stroke();
+      cx.beginPath(); cx.moveTo(cx0 + boxW/2, yp(bb.q1)); cx.lineTo(cx0 + boxW/2, yp(bb.min)); cx.stroke();
+
+      // After box
+      var cx1 = cx0 + boxW + 3;
+      cx.strokeStyle = procCB; cx.fillStyle = procC;
+      cx.fillRect(cx1, yp(ba.q3), boxW, yp(ba.q1) - yp(ba.q3));
+      cx.strokeRect(cx1, yp(ba.q3), boxW, yp(ba.q1) - yp(ba.q3));
+      cx.beginPath(); cx.moveTo(cx1, yp(ba.median)); cx.lineTo(cx1 + boxW, yp(ba.median)); cx.lineWidth = 2.5; cx.stroke(); cx.lineWidth = 1.5;
+      cx.beginPath(); cx.moveTo(cx1 + boxW/2, yp(ba.q3)); cx.lineTo(cx1 + boxW/2, yp(ba.max)); cx.stroke();
+      cx.beginPath(); cx.moveTo(cx1 + boxW/2, yp(ba.q1)); cx.lineTo(cx1 + boxW/2, yp(ba.min)); cx.stroke();
+
+      // Label — rotated for readability
+      cx.fillStyle = txtC; cx.font = "10px sans-serif"; cx.textAlign = "right";
+      cx.save();
+      cx.translate(cx0 + boxW + 2, bH - bPad.b + 14);
+      cx.rotate(-0.5);
+      cx.fillText(names[fi].substring(0, 14), 0, 0);
+      cx.restore();
+    }
+  } catch(e) { logErr("Box plots", e); }
+
+  // ── Scatter plots ──
+  try {
+    var sg = document.getElementById("scatterGrid");
+    if (D.scatter_pairs && D.scatter_pairs.length > 0) {
+      D.scatter_pairs.forEach(function(p, pi) {
+        var cd = document.createElement("div"); cd.className = "card";
+        cd.innerHTML = '<div class="card-title">' + p.name_i + ' vs ' + p.name_j + ' (r=' + p.r + ')</div><div class="cbox"><canvas id="scat_' + pi + '"></canvas></div>';
+        sg.appendChild(cd);
+        var pts = p.points.map(function(xy) { return { x: xy[0], y: xy[1] }; });
+
+        // Compute axis ranges with padding so edge points aren't clipped.
+        // Chart.js auto-range stops exactly at the data extent, which cuts
+        // off points whose marker radius extends past the last value.
+        var xmin = Infinity, xmax = -Infinity, ymin = Infinity, ymax = -Infinity;
+        for (var k = 0; k < pts.length; k++) {
+          if (pts[k].x < xmin) xmin = pts[k].x;
+          if (pts[k].x > xmax) xmax = pts[k].x;
+          if (pts[k].y < ymin) ymin = pts[k].y;
+          if (pts[k].y > ymax) ymax = pts[k].y;
+        }
+        var xpad = (xmax - xmin) * 0.05 || 0.5;
+        var ypad = (ymax - ymin) * 0.05 || 0.5;
+
+        new Chart(document.getElementById("scat_" + pi), {
+          type: "scatter",
+          data: { datasets: [{ data: pts, backgroundColor: "rgba(127,119,221,0.55)", borderColor: "rgba(127,119,221,0.9)", borderWidth: 0.5, pointRadius: 2.5 }] },
+          options: { responsive: true, maintainAspectRatio: false,
+            devicePixelRatio: window.devicePixelRatio || 1,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { min: xmin - xpad, max: xmax + xpad, title: { display: true, text: p.name_i, color: txtC, font: { size: 11 } }, ticks: { color: txtC, font: { size: 9 }, maxTicksLimit: 7 }, grid: { color: gridC } },
+              y: { min: ymin - ypad, max: ymax + ypad, title: { display: true, text: p.name_j, color: txtC, font: { size: 11 } }, ticks: { color: txtC, font: { size: 9 }, maxTicksLimit: 7 }, grid: { color: gridC } }
+            }}
+        });
+      });
+    } else {
+      sg.innerHTML = '<div class="card" style="color:#7f7d76;padding:16px">No pairs with |r| > 0.5</div>';
+    }
+  } catch(e) { logErr("Scatter plots", e); }
+
+  // ── Parallel coordinates ──
+  try {
+    var pcv = document.getElementById("parallelCanvas");
+    var pW = pcv.parentElement.clientWidth - 28, pH = pcv.parentElement.clientHeight - 28;
+    var pcx = setupCanvas(pcv, pW, pH);
+    pcx.fillStyle = "#252523"; pcx.fillRect(0, 0, pW, pH);
+    var pp = { l: 14, r: 14, t: 20, b: 56 };
+    var ppW = pW - pp.l - pp.r, ppH = pH - pp.t - pp.b;
+    var axGap = nf > 1 ? ppW / (nf - 1) : ppW;
+    var fmn = [], fmx = [];
+    for (var f = 0; f < nf; f++) {
+      var lo = Infinity, hi = -Infinity;
+      for (var si = 0; si < D.sample_after.length; si++) { var v = D.sample_after[si][f]; if (v < lo) lo = v; if (v > hi) hi = v; }
+      fmn.push(lo); fmx.push(hi);
+    }
+    // Draw sample lines first (so axes sit on top)
+    pcx.globalAlpha = 0.05; pcx.strokeStyle = "#8ecae6"; pcx.lineWidth = 0.6;
+    for (var si = 0; si < D.sample_after.length; si++) {
+      pcx.beginPath();
+      for (var f = 0; f < nf; f++) {
+        var x = pp.l + f * axGap, rng = fmx[f] - fmn[f]; if (rng < 1e-9) rng = 1;
+        var y = pp.t + ppH - (D.sample_after[si][f] - fmn[f]) / rng * ppH;
+        if (f === 0) pcx.moveTo(x, y); else pcx.lineTo(x, y);
+      }
+      pcx.stroke();
+    }
+    pcx.globalAlpha = 1;
+    // Axes on top
+    pcx.strokeStyle = "#555"; pcx.lineWidth = 1;
+    for (var f = 0; f < nf; f++) {
+      var x = pp.l + f * axGap;
+      pcx.beginPath(); pcx.moveTo(x, pp.t); pcx.lineTo(x, pp.t + ppH); pcx.stroke();
+      pcx.fillStyle = txtC; pcx.font = "10px sans-serif"; pcx.textAlign = "right";
+      pcx.save(); pcx.translate(x, pp.t + ppH + 14); pcx.rotate(-0.5);
+      pcx.fillText(names[f].substring(0, 14), 0, 0); pcx.restore();
+    }
+  } catch(e) { logErr("Parallel coordinates", e); }
+
+  // ── Correlation heatmap ──
+  try {
+    var ccv = document.getElementById("corrCanvas");
+    var corr = D.correlation_matrix;
+    if (corr && corr.length > 0) {
+      var cn = corr.length, cw = ccv.parentElement.clientWidth - 28;
+      var clW = 90, ctP = 70;
+      var cCell = Math.min(Math.floor((cw - clW) / cn), 52);
+      var ccW = clW + cn * cCell + 10, ccH = ctP + cn * cCell + 10;
+      var ccx = setupCanvas(ccv, ccW, ccH);
+      ccx.fillStyle = "#252523"; ccx.fillRect(0, 0, ccW, ccH);
+      function hcol(v) {
+        var t = Math.max(-1, Math.min(1, v)), r, g, b;
+        if (t < 0) { var s = -t; r = 0.2*(1-s)+0.22*s; g = 0.2*(1-s)+0.54*s; b = 0.2*(1-s)+0.87*s; }
+        else { var s = t; r = 0.2*(1-s)+0.89*s; g = 0.2*(1-s)+0.29*s; b = 0.2*(1-s)+0.29*s; }
+        return "rgb(" + Math.round(r*255) + "," + Math.round(g*255) + "," + Math.round(b*255) + ")";
+      }
+      // Perceived luminance — decides whether cell text should be black or white
+      function lum(v) {
+        var t = Math.max(-1, Math.min(1, v)), r, g, b;
+        if (t < 0) { var s = -t; r = 0.2*(1-s)+0.22*s; g = 0.2*(1-s)+0.54*s; b = 0.2*(1-s)+0.87*s; }
+        else { var s = t; r = 0.2*(1-s)+0.89*s; g = 0.2*(1-s)+0.29*s; b = 0.2*(1-s)+0.29*s; }
+        return 0.299*r + 0.587*g + 0.114*b;
+      }
+      ccx.font = "11px sans-serif";
+      for (var c = 0; c < cn; c++) {
+        ccx.save(); ccx.translate(clW + c*cCell + cCell/2, ctP - 6);
+        ccx.rotate(-0.7); ccx.fillStyle = txtC; ccx.textAlign = "left";
+        ccx.fillText(names[c].substring(0, 14), 0, 0); ccx.restore();
+      }
+      for (var r = 0; r < cn; r++) {
+        ccx.fillStyle = txtC; ccx.textAlign = "right"; ccx.font = "11px sans-serif";
+        ccx.fillText(names[r].substring(0, 12), clW - 6, ctP + r*cCell + cCell/2 + 4);
+        for (var c = 0; c < cn; c++) {
+          var v = corr[r][c];
+          ccx.fillStyle = hcol(v); ccx.fillRect(clW + c*cCell, ctP + r*cCell, cCell - 1, cCell - 1);
+          if (cCell >= 26) {
+            // Text color adapts to cell brightness for readability
+            ccx.fillStyle = lum(v) > 0.5 ? "#1a1a1a" : "#f0ede1";
+            ccx.textAlign = "center"; ccx.font = "10px monospace";
+            ccx.fillText(v.toFixed(2), clW + c*cCell + cCell/2, ctP + r*cCell + cCell/2 + 3);
+          }
+        }
+      }
+      // Hover tooltip
+      var tip = document.createElement("div");
+      tip.style.cssText = "position:fixed;background:#333;color:#f0ede1;padding:4px 8px;border-radius:4px;font:11px monospace;pointer-events:none;display:none;z-index:99";
+      document.body.appendChild(tip);
+      ccv.addEventListener("mousemove", function(e) {
+        var rect = ccv.getBoundingClientRect(), mx = e.clientX - rect.left, my = e.clientY - rect.top;
+        var ci = Math.floor((mx - clW) / cCell), ri = Math.floor((my - ctP) / cCell);
+        if (ci >= 0 && ci < cn && ri >= 0 && ri < cn) {
+          tip.style.display = "block"; tip.style.left = (e.clientX + 12) + "px"; tip.style.top = (e.clientY - 20) + "px";
+          tip.textContent = names[ri] + " ↔ " + names[ci] + ": r=" + corr[ri][ci].toFixed(4);
+        } else tip.style.display = "none";
+      });
+      ccv.addEventListener("mouseleave", function() { tip.style.display = "none"; });
+    }
+  } catch(e) { logErr("Correlation heatmap", e); }
+
+  // ── Stats table with sparklines ──
+  try {
+    var th = '<table><tr><th>Feature</th><th>Spark</th><th>Skew Bef</th><th>Skew Aft</th><th>Kurt Bef</th><th>Kurt Aft</th><th>Min</th><th>Max</th><th>Std</th></tr>';
+    for (var i = 0; i < D.after.length; i++) {
+      var a = D.after[i], bb = null;
+      for (var j = 0; j < D.before.length; j++) { if (D.before[j].name === a.name) { bb = D.before[j]; break; } }
+      var skc = (bb && Math.abs(a.skewness) < Math.abs(bb.skewness) - 0.1) ? "g" : (bb && Math.abs(a.skewness) > Math.abs(bb.skewness) + 0.1) ? "b" : "";
+      var kuc = (bb && Math.abs(a.kurtosis) < Math.abs(bb.kurtosis) - 0.1) ? "g" : (bb && Math.abs(a.kurtosis) > Math.abs(bb.kurtosis) + 0.1) ? "b" : "";
+      th += '<tr><td>' + a.name + '</td>'
+        + '<td><canvas id="sp_' + i + '" width="80" height="22" style="vertical-align:middle"></canvas></td>'
+        + '<td>' + (bb ? bb.skewness.toFixed(2) : "—") + '</td>'
+        + '<td class="' + skc + '">' + a.skewness.toFixed(2) + '</td>'
+        + '<td>' + (bb ? bb.kurtosis.toFixed(2) : "—") + '</td>'
+        + '<td class="' + kuc + '">' + a.kurtosis.toFixed(2) + '</td>'
+        + '<td>' + a.min.toFixed(2) + '</td><td>' + a.max.toFixed(2) + '</td>'
+        + '<td>' + a.std.toFixed(3) + '</td></tr>';
+    }
+    th += '</table>';
+    document.getElementById("statsTable").innerHTML = th;
+    // Draw sparklines (HiDPI-aware)
+    for (var i = 0; i < nf && i < D.histograms_before.length; i++) {
+      var sc = document.getElementById("sp_" + i); if (!sc) continue;
+      var sx = setupCanvas(sc, 80, 22);
+      var hb = D.histograms_before[i], ha = D.histograms_after[i];
+      var mx = Math.max(Math.max.apply(null, hb.counts), Math.max.apply(null, ha.counts)) || 1;
+      var bw = 80 / hb.counts.length;
+      for (var bi = 0; bi < hb.counts.length; bi++) {
+        sx.fillStyle = rawC; sx.fillRect(bi*bw, 20 - hb.counts[bi]/mx*18, bw - 0.3, hb.counts[bi]/mx*18);
+        sx.fillStyle = procC; sx.fillRect(bi*bw, 20 - ha.counts[bi]/mx*18, bw - 0.3, ha.counts[bi]/mx*18);
+      }
+    }
+  } catch(e) { logErr("Stats table", e); }
+
+  // ── Suggestions ──
+  try {
+    var shtml = "";
+    var scols = { impute: "#7f77dd", correlate: "#e24b4a", log: "#ef9f27", winsor: "#378add" };
+    ["impute","correlate","log","winsor"].forEach(function(sn) {
+      var sugs = D.suggestions[sn]; if (!sugs || !sugs.length) return;
+      sugs.forEach(function(s) {
+        shtml += '<div class="sug-item"><span class="sug-badge" style="background:' + scols[sn] + '22;color:' + scols[sn] + '">' + sn + '</span>';
+        if (sn === "correlate") shtml += s.feature_a + " ↔ " + s.feature_b + " r=" + s.correlation + " → drop " + s.suggest_drop;
+        else if (sn === "log") shtml += s.feature + " |skew|=" + Math.abs(s.skewness).toFixed(2);
+        else if (sn === "impute") shtml += s.name + ": " + s.missing_count + " missing";
+        else shtml += s.feature + ": clip " + s.would_clip;
+        shtml += "</div>";
+      });
+    });
+    if (!shtml) shtml = '<div style="color:#7f7d76;padding:8px">No suggestions</div>';
+    document.getElementById("suggestions").innerHTML = shtml;
+  } catch(e) { logErr("Suggestions", e); }
+}
+</script>
+</body>
+</html>
