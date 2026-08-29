@@ -32,18 +32,14 @@ standardisation, or robust scaling) is applied through FluCoMa.
 
 ## Requirements
 
-<!-- TODO: replace each "x" with the exact version you tested on
-     (Max: "About Max"; packages: Package Manager > Installed). -->
 
-- **Max 9.0.x** or later (the pipeline uses the V8 JavaScript engine, available
+- **Max 9.1.0** or later (the pipeline uses the V8 JavaScript engine, available
   from Max 9).
-- **FluCoMa x.x.x** — installable through the Max Package Manager.
-- **Bach x.x.x** and **EARS x.x.x** — installable through the Max Package Manager.
+- **FluCoMa 1.0.8** — installable through the Max Package Manager.
+- **Bach 0.8.1** and **EARS 0.1.0** — installable through the Max Package Manager.
 
 The tools run entirely inside Max and require **no Python installation**.
-<!-- TODO: confirm this. If any part of the shipped tool calls Python via
-     Node for Max, list the Python version and add a requirements.txt with
-     pinned versions (pip freeze). -->
+
 
 ## Installation
 
@@ -53,7 +49,7 @@ The tools run entirely inside Max and require **no Python installation**.
    ```
 2. Install the FluCoMa and Bach/EARS packages from the Max Package Manager if
    they are not already present.
-3. Open the Max project <!-- TODO: name the .maxproj file, or the standalone
+3. Open the Max project 
    apps, and say which patch to open first for each tool. -->
 
 ## Quick start
@@ -86,10 +82,11 @@ CIM_26_Tools/
 
 ## Sample data
 
-<!-- TODO: describe what is included and its source/licence. -->
+
 A small example corpus is provided so the tools can be run immediately, together
 with a pre-extracted descriptor dataset (JSON) so Tool 2's preprocessing can be
-tried without re-running extraction.
+tried without re-running extraction. A user manual describing the role of the parameters and how to change them.
+An extensive tutorial and some use-cases
 
 **Licence note:** all sample audio here is [fill in: CC0 / public domain / your
 own recordings] and may be redistributed freely. Do not add copyrighted audio to
@@ -112,12 +109,13 @@ If you use these tools, please cite:
   booktitle = {Proceedings of the XXV Colloquium on Musical Informatics (CIM)},
   address   = {L'Aquila, Italy},
   year      = {2026}
-  % TODO: add pages / publisher once the proceedings are finalised.
 }
 ```
 
 ## License
 
-<!-- TODO: choose and add a licence for the code (e.g. MIT), and include a
-     LICENSE file. This is separate from the paper, which is CC-BY 4.0. -->
-[fill in]
+The code in this repository (Max patches, JavaScript, and HTML) is released
+under the [MIT License](LICENSE).
+
+The accompanying paper is distributed under
+[CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).

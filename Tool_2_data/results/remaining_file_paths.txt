@@ -1,1 +1,0 @@
-1, /Users/matteolorito2/Desktop/audio/knock/Knock15chunk_01.wav;2, /Users/matteolorito2/Desktop/audio/knock/Knock15chunk_02.wav;3, /Users/matteolorito2/Desktop/audio/knock/Knock20.wav;4, /Users/matteolorito2/Desktop/audio/knock/Knock37.wav;5, /Users/matteolorito2/Desktop/audio/knock/Knock39chunk_02.wav;6, /Users/matteolorito2/Desktop/audio/knock/Knock39chunk_04.wav;
