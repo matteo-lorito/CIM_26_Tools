@@ -123,20 +123,48 @@ The following sequence of screenshots shows a complete real-world session, from 
 
 **Step 1 — Load the corpus and select features**
 
-![Step 1: loading the folder and selecting features](img/tutorial/step1_load_and_select.png)
+https://github.com/user-attachments/assets/e2b47baa-3843-4d3a-a2c2-71f2e15ad93c
+
 
 **Step 2 — Run the analysis and send the dataset to preprocessing**
 
-![Step 2: analysis and loading into preprocessing](img/tutorial/step2_analyse_and_preprocess.png)
+
+https://github.com/user-attachments/assets/2164ddf0-8ffd-47d6-97c4-6fcbaac86667
+
 
 **Step 3 — Preview the preprocessed data.** The preview window shows which features the system flags as strongly correlated. Based on these suggestions you can customise the configuration and re-run the analysis if needed.
 
-![Step 3: preview of preprocessed data](img/tutorial/step3_preview.png)
+
+
+https://github.com/user-attachments/assets/dcdb97ae-6f98-4ae9-8980-85f47f3abb22
+
+
+
 
 **Step 4 — Commit and generate the full report**
 
-![Step 4: commit and report](img/tutorial/step4_commit_and_report.png)
 
-**Step 5 — Send the dataset to Data Selection for exploration and filtering**
 
-![Step 5: data selection](img/tutorial/step5_data_selection.png)
+https://github.com/user-attachments/assets/cd809fb4-c0fe-48cc-8222-1ca1e62bd725
+
+
+
+**Step 5 — Normalisation**
+
+
+
+https://github.com/user-attachments/assets/441b9b1c-0029-49db-b22c-806d7176029a
+
+
+
+**Step 6 — Send the dataset to Data Selection for exploration and filtering**
+
+
+
+
+https://github.com/user-attachments/assets/f264f603-8875-4c78-89f7-81674d346392
+
+
+
+
+
