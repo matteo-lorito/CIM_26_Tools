@@ -86,7 +86,7 @@ this repository.
 
 ## Documentation
 
-- **User manual:** [fill in path, e.g. `docs/preprocess_manual.pdf`].
+- **User manual:** [Manuals] (docs/)
 - **Interactive tutorials:** 
 - **Use cases:** included in the Max project.
 
