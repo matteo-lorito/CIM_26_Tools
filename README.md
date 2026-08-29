@@ -87,7 +87,7 @@ this repository.
 ## Documentation
 
 - **User manual:** [Manuals](docs/)
-- **Interactive tutorials:** 
+- **Tutorial:** [Tutorial](tutorials/)
 - **Use cases:** included in the Max project.
 
 ## Citation
