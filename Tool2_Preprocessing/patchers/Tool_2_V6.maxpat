@@ -42,7 +42,6 @@
                         },
                         "classnamespace": "box",
                         "rect": [ 59.0, 106.0, 1000.0, 700.0 ],
-                        "visible": 1,
                         "boxes": [
                             {
                                 "box": {
@@ -1510,7 +1509,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "bang" ],
                     "patching_rect": [ 3192.0, 400.0, 67.0, 22.0 ],
-                    "text": "delay 2000"
+                    "text": "delay 5000"
                 }
             },
             {
@@ -4367,7 +4366,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 11145.454439163208, 624.9999940395355, 30.0, 32.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 2850.0, 466.0, 30.0, 32.0 ],
+                    "presentation_rect": [ 2580.0, 466.0, 30.0, 32.0 ],
                     "rightarrow": 0,
                     "saved_attribute_attributes": {
                         "arrowcolor": {
@@ -4747,213 +4746,8 @@
             {
                 "box": {
                     "coll_data": {
-                        "count": 51,
-                        "data": [
-                            {
-                                "key": 1,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock1.wav" ]
-                            },
-                            {
-                                "key": 2,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock2.wav" ]
-                            },
-                            {
-                                "key": 3,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock3.wav" ]
-                            },
-                            {
-                                "key": 4,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock4.wav" ]
-                            },
-                            {
-                                "key": 5,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock5.wav" ]
-                            },
-                            {
-                                "key": 6,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock6.wav" ]
-                            },
-                            {
-                                "key": 7,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock7.wav" ]
-                            },
-                            {
-                                "key": 8,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock8.wav" ]
-                            },
-                            {
-                                "key": 9,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock9.wav" ]
-                            },
-                            {
-                                "key": 10,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock10.wav" ]
-                            },
-                            {
-                                "key": 11,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock11.wav" ]
-                            },
-                            {
-                                "key": 12,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock12.wav" ]
-                            },
-                            {
-                                "key": 13,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock13.wav" ]
-                            },
-                            {
-                                "key": 14,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock14.wav" ]
-                            },
-                            {
-                                "key": 15,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock15chunk_01.wav" ]
-                            },
-                            {
-                                "key": 16,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock15chunk_02.wav" ]
-                            },
-                            {
-                                "key": 17,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock16.wav" ]
-                            },
-                            {
-                                "key": 18,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock17.wav" ]
-                            },
-                            {
-                                "key": 19,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock18.wav" ]
-                            },
-                            {
-                                "key": 20,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock19.wav" ]
-                            },
-                            {
-                                "key": 21,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock20.wav" ]
-                            },
-                            {
-                                "key": 22,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock21.wav" ]
-                            },
-                            {
-                                "key": 23,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock22.wav" ]
-                            },
-                            {
-                                "key": 24,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock23.wav" ]
-                            },
-                            {
-                                "key": 25,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock24.wav" ]
-                            },
-                            {
-                                "key": 26,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock25.wav" ]
-                            },
-                            {
-                                "key": 27,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock26.wav" ]
-                            },
-                            {
-                                "key": 28,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock27.wav" ]
-                            },
-                            {
-                                "key": 29,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock28chunk_01.wav" ]
-                            },
-                            {
-                                "key": 30,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock28chunk_02.wav" ]
-                            },
-                            {
-                                "key": 31,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_01.wav" ]
-                            },
-                            {
-                                "key": 32,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_02.wav" ]
-                            },
-                            {
-                                "key": 33,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_03.wav" ]
-                            },
-                            {
-                                "key": 34,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_04.wav" ]
-                            },
-                            {
-                                "key": 35,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_05.wav" ]
-                            },
-                            {
-                                "key": 36,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_06.wav" ]
-                            },
-                            {
-                                "key": 37,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock30.wav" ]
-                            },
-                            {
-                                "key": 38,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock31.wav" ]
-                            },
-                            {
-                                "key": 39,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock32.wav" ]
-                            },
-                            {
-                                "key": 40,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock33.wav" ]
-                            },
-                            {
-                                "key": 41,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock34.wav" ]
-                            },
-                            {
-                                "key": 42,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock35.wav" ]
-                            },
-                            {
-                                "key": 43,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock36.wav" ]
-                            },
-                            {
-                                "key": 44,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock37.wav" ]
-                            },
-                            {
-                                "key": 45,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock38.wav" ]
-                            },
-                            {
-                                "key": 46,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_02.wav" ]
-                            },
-                            {
-                                "key": 47,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_03.wav" ]
-                            },
-                            {
-                                "key": 48,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_04.wav" ]
-                            },
-                            {
-                                "key": 49,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_05.wav" ]
-                            },
-                            {
-                                "key": 50,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_06.wav" ]
-                            },
-                            {
-                                "key": 51,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock40.wav" ]
-                            }
-                        ]
+                        "count": 0,
+                        "data": []
                     },
                     "id": "obj-675",
                     "maxclass": "newobj",
@@ -6502,13 +6296,12 @@
             {
                 "box": {
                     "id": "obj-409",
-                    "linecount": 2,
                     "maxclass": "message",
                     "numinlets": 2,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 8529.176431179047, 711.0427939891815, 79.0, 35.0 ],
-                    "text": "addrange 0 11"
+                    "patching_rect": [ 8529.176431179047, 711.0427939891815, 79.0, 22.0 ],
+                    "text": "addrange 0 0"
                 }
             },
             {
@@ -6924,213 +6717,8 @@
             {
                 "box": {
                     "coll_data": {
-                        "count": 51,
-                        "data": [
-                            {
-                                "key": 1,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock1.wav" ]
-                            },
-                            {
-                                "key": 2,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock2.wav" ]
-                            },
-                            {
-                                "key": 3,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock3.wav" ]
-                            },
-                            {
-                                "key": 4,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock4.wav" ]
-                            },
-                            {
-                                "key": 5,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock5.wav" ]
-                            },
-                            {
-                                "key": 6,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock6.wav" ]
-                            },
-                            {
-                                "key": 7,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock7.wav" ]
-                            },
-                            {
-                                "key": 8,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock8.wav" ]
-                            },
-                            {
-                                "key": 9,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock9.wav" ]
-                            },
-                            {
-                                "key": 10,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock10.wav" ]
-                            },
-                            {
-                                "key": 11,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock11.wav" ]
-                            },
-                            {
-                                "key": 12,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock12.wav" ]
-                            },
-                            {
-                                "key": 13,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock13.wav" ]
-                            },
-                            {
-                                "key": 14,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock14.wav" ]
-                            },
-                            {
-                                "key": 15,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock15chunk_01.wav" ]
-                            },
-                            {
-                                "key": 16,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock15chunk_02.wav" ]
-                            },
-                            {
-                                "key": 17,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock16.wav" ]
-                            },
-                            {
-                                "key": 18,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock17.wav" ]
-                            },
-                            {
-                                "key": 19,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock18.wav" ]
-                            },
-                            {
-                                "key": 20,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock19.wav" ]
-                            },
-                            {
-                                "key": 21,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock20.wav" ]
-                            },
-                            {
-                                "key": 22,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock21.wav" ]
-                            },
-                            {
-                                "key": 23,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock22.wav" ]
-                            },
-                            {
-                                "key": 24,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock23.wav" ]
-                            },
-                            {
-                                "key": 25,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock24.wav" ]
-                            },
-                            {
-                                "key": 26,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock25.wav" ]
-                            },
-                            {
-                                "key": 27,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock26.wav" ]
-                            },
-                            {
-                                "key": 28,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock27.wav" ]
-                            },
-                            {
-                                "key": 29,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock28chunk_01.wav" ]
-                            },
-                            {
-                                "key": 30,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock28chunk_02.wav" ]
-                            },
-                            {
-                                "key": 31,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_01.wav" ]
-                            },
-                            {
-                                "key": 32,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_02.wav" ]
-                            },
-                            {
-                                "key": 33,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_03.wav" ]
-                            },
-                            {
-                                "key": 34,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_04.wav" ]
-                            },
-                            {
-                                "key": 35,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_05.wav" ]
-                            },
-                            {
-                                "key": 36,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_06.wav" ]
-                            },
-                            {
-                                "key": 37,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock30.wav" ]
-                            },
-                            {
-                                "key": 38,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock31.wav" ]
-                            },
-                            {
-                                "key": 39,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock32.wav" ]
-                            },
-                            {
-                                "key": 40,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock33.wav" ]
-                            },
-                            {
-                                "key": 41,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock34.wav" ]
-                            },
-                            {
-                                "key": 42,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock35.wav" ]
-                            },
-                            {
-                                "key": 43,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock36.wav" ]
-                            },
-                            {
-                                "key": 44,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock37.wav" ]
-                            },
-                            {
-                                "key": 45,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock38.wav" ]
-                            },
-                            {
-                                "key": 46,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_02.wav" ]
-                            },
-                            {
-                                "key": 47,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_03.wav" ]
-                            },
-                            {
-                                "key": 48,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_04.wav" ]
-                            },
-                            {
-                                "key": 49,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_05.wav" ]
-                            },
-                            {
-                                "key": 50,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_06.wav" ]
-                            },
-                            {
-                                "key": 51,
-                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock40.wav" ]
-                            }
-                        ]
+                        "count": 0,
+                        "data": []
                     },
                     "id": "obj-446",
                     "maxclass": "newobj",
@@ -7250,7 +6838,7 @@
                     "patching_rect": [ 5993.47814655304, 1723.913010597229, 338.0, 41.0 ],
                     "presentation": 1,
                     "presentation_rect": [ 3266.1972259283066, 269.4329251050949, 332.9787210226059, 23.404255151748657 ],
-                    "text": "-1.5 1.0 0.5 0. 0.5 1.0 1.5 2.0 2.5"
+                    "text": "0 100 200 300"
                 }
             },
             {
@@ -7596,6 +7184,7 @@
                 "box": {
                     "bgcolor": [ 0.08627450980392157, 0.08627450980392157, 0.08627450980392157, 1.0 ],
                     "buffername": "playback_buf",
+                    "chanoffset": 0,
                     "gridcolor": [ 0.2, 0.19607843137254902, 0.19607843137254902, 1.0 ],
                     "id": "obj-526",
                     "maxclass": "waveform~",
@@ -7896,15 +7485,13 @@
                 "box": {
                     "fontsize": 14.0,
                     "id": "obj-180",
-                    "linecount": 11,
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 737.0000096559525, 1744.53125, 172.8571469783783, 194.0 ],
+                    "patching_rect": [ 737.0000096559525, 1744.53125, 172.8571469783783, 22.0 ],
                     "presentation": 1,
-                    "presentation_linecount": 11,
-                    "presentation_rect": [ 86.554616689682, 745.5, 207.0, 194.0 ],
-                    "text": "1-Centroid\n 2-Rolloff\n 3-Crest\n 4-Loudness range\n 5-Amplitude\n 6-Spectral tilt\n 7-Spectral Flux\n 8-Harmonic-to-Noise ratio\n 9-Pitch Salience\n 10-MFCC_5\n 11-Duration (ms)\n"
+                    "presentation_rect": [ 86.554616689682, 745.5, 207.0, 22.0 ],
+                    "text": "-----"
                 }
             },
             {
@@ -7977,7 +7564,7 @@
                     "presentation": 1,
                     "presentation_rect": [ 62.62807056307793, 745.5, 18.0, 178.0 ],
                     "size": 11,
-                    "values": [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+                    "values": [ 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
                 }
             },
             {
@@ -11030,7 +10617,7 @@
                     "presentation": 1,
                     "presentation_rect": [ 354.99996614456177, 579.0476664304733, 184.0, 23.0 ],
                     "tabmode": 0,
-                    "text": "Ready for the analysis"
+                    "text": "----"
                 }
             },
             {
@@ -12490,7 +12077,6 @@
                     "presentation": 1,
                     "presentation_rect": [ 1652.1126977205276, 232.88081967830658, 800.044704914093, 71.0 ],
                     "readonly": 1,
-                    "text": "reset",
                     "wordwrap": 0
                 }
             },
@@ -12758,7 +12344,7 @@
                     "presentation": 1,
                     "presentation_rect": [ 59.09090828895569, 365.98975932598114, 18.0, 178.0 ],
                     "size": 11,
-                    "values": [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+                    "values": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
                 }
             },
             {
@@ -20412,213 +19998,8 @@
                             {
                                 "box": {
                                     "coll_data": {
-                                        "count": 51,
-                                        "data": [
-                                            {
-                                                "key": 1,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock1.wav" ]
-                                            },
-                                            {
-                                                "key": 2,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock2.wav" ]
-                                            },
-                                            {
-                                                "key": 3,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock3.wav" ]
-                                            },
-                                            {
-                                                "key": 4,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock4.wav" ]
-                                            },
-                                            {
-                                                "key": 5,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock5.wav" ]
-                                            },
-                                            {
-                                                "key": 6,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock6.wav" ]
-                                            },
-                                            {
-                                                "key": 7,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock7.wav" ]
-                                            },
-                                            {
-                                                "key": 8,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock8.wav" ]
-                                            },
-                                            {
-                                                "key": 9,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock9.wav" ]
-                                            },
-                                            {
-                                                "key": 10,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock10.wav" ]
-                                            },
-                                            {
-                                                "key": 11,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock11.wav" ]
-                                            },
-                                            {
-                                                "key": 12,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock12.wav" ]
-                                            },
-                                            {
-                                                "key": 13,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock13.wav" ]
-                                            },
-                                            {
-                                                "key": 14,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock14.wav" ]
-                                            },
-                                            {
-                                                "key": 15,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock15chunk_01.wav" ]
-                                            },
-                                            {
-                                                "key": 16,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock15chunk_02.wav" ]
-                                            },
-                                            {
-                                                "key": 17,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock16.wav" ]
-                                            },
-                                            {
-                                                "key": 18,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock17.wav" ]
-                                            },
-                                            {
-                                                "key": 19,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock18.wav" ]
-                                            },
-                                            {
-                                                "key": 20,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock19.wav" ]
-                                            },
-                                            {
-                                                "key": 21,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock20.wav" ]
-                                            },
-                                            {
-                                                "key": 22,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock21.wav" ]
-                                            },
-                                            {
-                                                "key": 23,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock22.wav" ]
-                                            },
-                                            {
-                                                "key": 24,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock23.wav" ]
-                                            },
-                                            {
-                                                "key": 25,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock24.wav" ]
-                                            },
-                                            {
-                                                "key": 26,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock25.wav" ]
-                                            },
-                                            {
-                                                "key": 27,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock26.wav" ]
-                                            },
-                                            {
-                                                "key": 28,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock27.wav" ]
-                                            },
-                                            {
-                                                "key": 29,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock28chunk_01.wav" ]
-                                            },
-                                            {
-                                                "key": 30,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock28chunk_02.wav" ]
-                                            },
-                                            {
-                                                "key": 31,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_01.wav" ]
-                                            },
-                                            {
-                                                "key": 32,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_02.wav" ]
-                                            },
-                                            {
-                                                "key": 33,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_03.wav" ]
-                                            },
-                                            {
-                                                "key": 34,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_04.wav" ]
-                                            },
-                                            {
-                                                "key": 35,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_05.wav" ]
-                                            },
-                                            {
-                                                "key": 36,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock29chunk_06.wav" ]
-                                            },
-                                            {
-                                                "key": 37,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock30.wav" ]
-                                            },
-                                            {
-                                                "key": 38,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock31.wav" ]
-                                            },
-                                            {
-                                                "key": 39,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock32.wav" ]
-                                            },
-                                            {
-                                                "key": 40,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock33.wav" ]
-                                            },
-                                            {
-                                                "key": 41,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock34.wav" ]
-                                            },
-                                            {
-                                                "key": 42,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock35.wav" ]
-                                            },
-                                            {
-                                                "key": 43,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock36.wav" ]
-                                            },
-                                            {
-                                                "key": 44,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock37.wav" ]
-                                            },
-                                            {
-                                                "key": 45,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock38.wav" ]
-                                            },
-                                            {
-                                                "key": 46,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_02.wav" ]
-                                            },
-                                            {
-                                                "key": 47,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_03.wav" ]
-                                            },
-                                            {
-                                                "key": 48,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_04.wav" ]
-                                            },
-                                            {
-                                                "key": 49,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_05.wav" ]
-                                            },
-                                            {
-                                                "key": 50,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock39chunk_06.wav" ]
-                                            },
-                                            {
-                                                "key": 51,
-                                                "value": [ "/Users/matteolorito2/Desktop/audio/knock/Knock40.wav" ]
-                                            }
-                                        ]
+                                        "count": 0,
+                                        "data": []
                                     },
                                     "id": "obj-26",
                                     "maxclass": "newobj",
@@ -22044,27 +21425,6 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-19", 0 ],
-                    "order": 1,
-                    "source": [ "obj-1", 2 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-2", 0 ],
-                    "source": [ "obj-1", 1 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-29", 1 ],
-                    "midpoints": [ 3139.0915905833244, 671.0195127725601, 3139.5, 671.0195127725601 ],
-                    "order": 0,
-                    "source": [ "obj-1", 2 ]
-                }
-            },
-            {
-                "patchline": {
                     "destination": [ "obj-1", 0 ],
                     "midpoints": [ 2597.0, 593.3139226436615, 2634.852147102356, 593.3139226436615 ],
                     "source": [ "obj-106", 0 ]
@@ -22421,12 +21781,6 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-25", 0 ],
-                    "source": [ "obj-167", 1 ]
-                }
-            },
-            {
-                "patchline": {
                     "destination": [ "obj-184", 0 ],
                     "source": [ "obj-169", 0 ]
                 }
@@ -22624,12 +21978,6 @@
                 "patchline": {
                     "destination": [ "obj-179", 0 ],
                     "source": [ "obj-193", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-610", 0 ],
-                    "source": [ "obj-193", 1 ]
                 }
             },
             {
@@ -24366,13 +23714,6 @@
                     "midpoints": [ 5398.630331993103, 1835.1044005192816, 5346.059375166893, 1835.1044005192816 ],
                     "order": 0,
                     "source": [ "obj-484", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-481", 0 ],
-                    "midpoints": [ 5555.630331993103, 1822.9564871788025, 5479.065113067627, 1822.9564871788025 ],
-                    "source": [ "obj-484", 1 ]
                 }
             },
             {

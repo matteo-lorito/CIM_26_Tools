@@ -38,9 +38,6 @@ standardisation, or robust scaling) is applied through FluCoMa.
 - **FluCoMa 1.0.8** — installable through the Max Package Manager.
 - **Bach 0.8.1** and **EARS 0.1.0** — installable through the Max Package Manager.
 
-The tools run entirely inside Max and require **no Python installation**.
-
-
 ## Installation
 
 1. Clone or download this repository:
@@ -54,10 +51,6 @@ The tools run entirely inside Max and require **no Python installation**.
 
 ## Quick start
 
-<!-- TODO: adjust paths/filenames to match the sample-data folder. -->
-
-Using the included [sample data](#sample-data):
-
 1. **Tool 1.** Open Tool 1, load the sample corpus folder, and inspect its
    duration and format properties. Slice it into analysis units and load the
    result back into the inspector.
@@ -70,13 +63,12 @@ including how to read each panel of the diagnostics report.
 
 ## Repository structure
 
-<!-- TODO: fill in to match the repository. Example: -->
 ```
 CIM_26_Tools/
-├── Tool1_CorpusPreparation/     # Tool 1 patch(es)
-├── Tool2_Preprocessing/         # Tool 2 patch(es), preprocess.js, report.html, diagnostics panel
-├── sample-data/                 # small example corpus + pre-extracted dataset
-├── docs/                        # user manual (PDF), interactive tutorials
+├── Tool1_CorpusPreparation/     # Tool 1 Maxproject patch(es), use cases
+├── Tool2_Preprocessing/         # Tool 2 Maxproject patch(es), preprocess.js, report.html, diagnostics panel, use cases
+├── docs/                        # user manual (PDF)
+├── tutorials                    # A tutorial on Tool 2 use
 └── README.md
 ```
 
@@ -95,7 +87,8 @@ this repository.
 ## Documentation
 
 - **User manual:** [fill in path, e.g. `docs/preprocess_manual.pdf`].
-- **Interactive tutorials:** included in the Max project.
+- **Interactive tutorials:** 
+- **Use cases:** included in the Max project.
 
 ## Citation
 
