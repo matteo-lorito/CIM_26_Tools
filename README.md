@@ -72,13 +72,7 @@ CIM_26_Tools/
 └── README.md
 ```
 
-## Sample data
 
-
-A small example corpus is provided so the tools can be run immediately, together
-with a pre-extracted descriptor dataset (JSON) so Tool 2's preprocessing can be
-tried without re-running extraction. A user manual describing the role of the parameters and how to change them.
-An extensive tutorial and some use-cases
 
 **Licence note:** all sample audio here is [fill in: CC0 / public domain / your
 own recordings] and may be redistributed freely. Do not add copyrighted audio to
